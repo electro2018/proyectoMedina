@@ -89,4 +89,10 @@ productsRouter.put('/:pid', (req, res) => {
 productsRouter.delete('/:pid', (req, res) => {
   const products = readDataFromFile(PRODUCTS_DB_PATH);
   const index = products.findIndex((p) => p.id == req.params.pid);
-}
+  if (index !== -1) {
+    products.splice(index, 1);
+    res.send(`Producto con id ${products} eliminado`);
+  } else {
+    res.status(404).send('Producto no encontrado');
+  }
+});
