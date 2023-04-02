@@ -1,28 +1,14 @@
-const { Router } = require('express')
+const express = require('express');
+const router = express.Router();
+const cartsController = require('../controllers/carts');
 
-const userRouter = Router()
+// Ruta para crear un nuevo carrito
+router.post('/', cartsController.create);
 
+// Ruta para obtener los productos de un carrito por id
+router.get('/:cid', cartsController.getProductsById);
 
-let users = []
+// Ruta para agregar un producto a un carrito por id
+router.post('/:cid/product/:pid', cartsController.addProduct);
 
-
-// GET http://localhost:xxxx /api/carts  /
-userRouter.get('/', (req, res)=>{
-    
-    res.send('get de usuarios')
-})
-
-// POST http://localhost:xxxx /api/carts  /
-userRouter.post('/', (req, res)=>{
-    const {name, last_name, email, phone} = req.body
-    users.push({ id:Date.now(), name, last_name,email, phone })
-    return res.json({
-        status: 'success',
-        message: 'usuario agregado correctamente',
-        users
-    })
-})
-
-module.exports = { 
-    userRouter
-}
+module.exports = router;

@@ -102,4 +102,5 @@ productsRouter.put('/:pid', (req, res) => {
 productsRouter.delete('/:pid', (req, res) => {
   const products = readDataFromFile(PRODUCTS_DB_PATH);
   const index = products.findIndex((p) => p.id == req.params.pid);
-}
+
+});

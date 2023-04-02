@@ -1,43 +1,20 @@
+const fs = require('fs');
+const path = require('path');
 
-const { Router } = require('express')
+const PRODUCTS_FILE = path.join(__dirname, '..', 'data', 'productos.json');
 
-const userRouter = Router()
+function readProductsFile() {
+  const data = fs.readFileSync(PRODUCTS_FILE);
+  return JSON.parse(data);
+}
 
+function writeProductsFile(data) {
+  const jsonData = JSON.stringify(data, null, 2);
+  fs.writeFileSync(PRODUCTS_FILE, jsonData);
+}
 
-let users = []
-
-
-// GET http://localhost:xxxx /api/products  /
-userRouter.get('/', (req, res)=>{
-    
-    res.send('get de usuarios')
-})
-
-// POST http://localhost:xxxx /api/products  /
-userRouter.post('/', (req, res)=>{
-    const {name, last_name, email, phone} = req.body
-    users.push({ id:Date.now(), name, last_name,email, phone })
-    return res.json({
-        status: 'success',
-        message: 'usuario agregado correctamente',
-        users
-    })
-})
-// PUT http://localhost:xxxx /api/usuarios  /
-userRouter.put('/', (req, res)=>{
-    
-    res.send('get de usuarios')
-})
-// DELETE http://localhost:xxxx /api/usuarios  /
-userRouter.delete('/', (req, res)=>{
-    
-    res.send('get de usuarios')
-})
-
-
-
-
-
-module.exports = { 
-    userRouter
+function generateProductId() {
+  const products = readProductsFile();
+  const ids = products.map((p) => p.id);
+  const newId = ids.length > 0 ? Math.max(...ids) + 1 : 1;
 }
