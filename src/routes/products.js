@@ -7,13 +7,13 @@ const userRouter = Router()
 let users = []
 
 
-// GET http://localhost:xxxx /api/usuarios  /
+// GET http://localhost:xxxx /api/products  /
 userRouter.get('/', (req, res)=>{
     
     res.send('get de usuarios')
 })
 
-// POST http://localhost:xxxx /api/usuarios  /
+// POST http://localhost:xxxx /api/products  /
 userRouter.post('/', (req, res)=>{
     const {name, last_name, email, phone} = req.body
     users.push({ id:Date.now(), name, last_name,email, phone })
@@ -24,12 +24,12 @@ userRouter.post('/', (req, res)=>{
     })
 })
 // PUT http://localhost:xxxx /api/usuarios  /
-userRouter.get('/', (req, res)=>{
+userRouter.put('/', (req, res)=>{
     
     res.send('get de usuarios')
 })
 // DELETE http://localhost:xxxx /api/usuarios  /
-userRouter.get('/', (req, res)=>{
+userRouter.delete('/', (req, res)=>{
     
     res.send('get de usuarios')
 })
